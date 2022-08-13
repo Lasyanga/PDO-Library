@@ -10,8 +10,8 @@
 
 	$x_host = "localhost"; # database server host 
 	$x_username = "root"; # database server username
-	$x_password = "root"; # database server password
-	$x_dbname = "employeedb"; # database name
+	$x_password = ""; # database server password
+	$x_dbname = "database_name"; # database name
 
 	// $x_is_Errors = 1; # display errors? 1 == TRUE, 0 == FALSE
 
