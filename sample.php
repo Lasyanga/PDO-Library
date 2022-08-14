@@ -3,13 +3,17 @@ require_once('./class_lib/autoload.php');
 
 	$sample = new PDODatabase();
 
-	$sql_query = "select * from user_account";
+	$sql_query = "select * from person";
+	// $sql_query = "select from person";
 
-	$param[0] = "gil";
-	$param[1] = "nickpassword";
+	// $sql_query = "INSERT INTO person(fname, lname, mname) VALUES(?, ?, ?)";
+
+	// $param = array('Herminigildo', 'Quiano', 'Alcover');
 
 	$sample->pdoExecuteQuery($sql_query);
 
 	echo $sample->getRowCount();
-	print_r($sample->getFetchRow());
+	echo $sample->get_isQuerySuccess();
+	echo "\n";
+	print_r($sample->getFetchData());
 ?>

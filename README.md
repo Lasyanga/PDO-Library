@@ -1,5 +1,6 @@
 # PHP PDO Library
-	is a simple PHP PDO Library, it was inspired at these following repositories:
+
+is a simple PHP PDO Library, it was inspired at these following repositories:
 
 - [arvinkent17/Dynamic-PDO-](https://github.com/arvinkent17/Dynamic-PDO-)
 - [kevinkabatra/PHP-PDO-Library](https://github.com/kevinkabatra/PHP-PDO-Library)
