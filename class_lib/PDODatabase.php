@@ -40,7 +40,7 @@
 
 				echo $object_name->isConnectionOpen(); // return 1 or 0. 1 == TRUE, 0 == FALSE
 		*/
-		public function openConnection(){
+		private function openConnection(){
 			try{
 				$this->connection = new PDO(
 					"mysql:host=".$this->server_host.";dbname=".$this->database_name,
