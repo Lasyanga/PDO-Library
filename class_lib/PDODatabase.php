@@ -225,6 +225,24 @@
 		}
 
 		/*
+			Clean user inputs
+
+			Usage:
+				$object_name = new PDODatabase();
+
+				$str = "<script>alert('Hello world')</script>";
+				$object_name->clean($str);
+		*/
+		public function clean($input){
+			$this->data = strip_tags($input);
+			$this->data = trim($this->data);
+			$this->data = stripslashes($this->data);
+			$this->data = htmlspecialchars($this->data);
+			$this->data = htmlentities($this->data);
+			return $this->data;
+		}
+
+		/*
 			__destruct() automatically execute when there's no other instance.
 
 			This will automatically close the database connection.
