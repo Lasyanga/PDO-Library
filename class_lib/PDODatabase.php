@@ -96,45 +96,34 @@
 			@param array $param
 			@param bool $debug
 		*/
+
 		public function pdoExecuteQuery($sql_query, $param = null, $debug = false){
-			if(is_null($param)){
-				try{
-					$this->object = $this->connection->prepare($sql_query);
+			try{
+				$this->object = $this->connection->prepare($sql_query);
 
-					$this->isdebug($param, $debug);
-
-					$this->set_isQuerySuccess($this->object->execute());
-
-				}catch(PDOException $pdoException){
-					echo $pdoException->getMessage();
-					die();
-				}
-
-			}else{
-				try{
-					$this->object = $this->connection->prepare($sql_query);
-
-					for($index = 0; $index < count($param); $index++){
-						switch (gettype($param[$index])) {
+				if(!is_null($param)){
+					foreach($param as $index => $value){
+						switch (gettype($value)) {
 							case 'string':
-								$this->object->bindParam($index + 1, $param[$index], PDO::PARAM_STR);
-								break;
+							$type = PDO::PARAM_STR;
+							break;
 							case 'integer':
-									$this->object->bindParam($index + 1, $param[$index], PDO::PARAM_INT);
-								break;
+							$type = PDO::PARAM_INT;
+							break;
 							case 'boolean':
-									$this->object->bindParam($index + 1, $param[$index], PDO::PARAM_BOOL);
-								break;
+							$type = PDO::PARAM_BOOL;
+							break;
 						}
+						$this->object->bindParam($index + 1, $value, $type);
 					}
-
-					$this->isdebug($param, $debug);
-					$this->set_isQuerySuccess($this->object->execute());
-
-				}catch(PDOException $pdoException){
-					echo $pdoException->getMessage();
-					die();
 				}
+
+				$this->isdebug($param, $debug);
+				$this->set_isQuerySuccess($this->object->execute());
+
+			}catch(PDOException $pdoException){
+				echo $pdoException->getMessage();
+				die();
 			}
 		}
 
@@ -234,11 +223,7 @@
 				$object_name->clean($str);
 		*/
 		public function clean($input){
-			$this->data = strip_tags($input);
-			$this->data = trim($this->data);
-			$this->data = stripslashes($this->data);
-			$this->data = htmlspecialchars($this->data);
-			$this->data = htmlentities($this->data);
+			$this->data = filter_var($input, FILTER_SANITIZE_STRING);
 			return $this->data;
 		}
 
